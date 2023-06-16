@@ -13,6 +13,7 @@ public class TextController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		totalGems = GameObject.FindGameObjectsWithTag ("redGem");
+		gemCounter.text = "Gems: " + totalGems.Length.ToString ();
 	}
 }
