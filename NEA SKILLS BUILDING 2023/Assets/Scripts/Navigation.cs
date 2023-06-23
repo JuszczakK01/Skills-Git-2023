@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Navigation : MonoBehaviour {
 	private Canvas mainCanvas;
@@ -22,10 +23,14 @@ public class Navigation : MonoBehaviour {
 	}
 	public void ClickedButtonA(){
 		Debug.Log ("Button A Clicked");
+		PlayerPrefs.SetString ("WhichButtonClicked", "A");
+		SceneManager.LoadScene ("PlayerPrefs");
 	}
 
 	public void ClickedButtonB(){
 		Debug.Log ("Button B Clicked");
+		PlayerPrefs.SetString ("WhichButtonClicked", "B");
+		SceneManager.LoadScene ("PlayerPrefs");
 	}
 
 	public void ClickedExit(){
