@@ -113,41 +113,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &25398104 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1954924532842338, guid: 4d28026712d2a8f49b825de9ded4c33f,
-    type: 2}
-  m_PrefabInternal: {fileID: 2041446431}
 --- !u!4 &25398106 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4128242949764006, guid: 4d28026712d2a8f49b825de9ded4c33f,
     type: 2}
   m_PrefabInternal: {fileID: 2041446431}
---- !u!61 &25398107
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 25398104}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
-    newSize: {x: 0.64, y: 0.64}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.64}
-  m_EdgeRadius: 0
 --- !u!1 &174813622
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,7 +145,7 @@ Transform:
   m_Children:
   - {fileID: 2098086024}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &177292546
 GameObject:
@@ -302,6 +272,7 @@ GameObject:
   - component: {fileID: 329428614}
   - component: {fileID: 329428615}
   - component: {fileID: 329428616}
+  - component: {fileID: 329428617}
   m_Layer: 0
   m_Name: hero
   m_TagString: Player
@@ -527,6 +498,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &329428617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 329428609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e35305b3d3eecf49a16088efec97aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coin: {fileID: 8300000, guid: 4dd3df29390ddcc44b0a4fd2b411b11c, type: 3}
+  bomb: {fileID: 8300000, guid: 1025b9a617ae07448aa4a518a981509d, type: 3}
+  life: {fileID: 8300000, guid: ae29e7de5490ef941b70a9972756a2cd, type: 3}
 --- !u!1001 &396894433
 Prefab:
   m_ObjectHideFlags: 0
@@ -670,7 +655,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &603737562
 GameObject:

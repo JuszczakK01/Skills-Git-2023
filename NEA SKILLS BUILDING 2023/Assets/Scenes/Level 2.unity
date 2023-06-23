@@ -584,6 +584,7 @@ GameObject:
   - component: {fileID: 329428614}
   - component: {fileID: 329428615}
   - component: {fileID: 329428616}
+  - component: {fileID: 329428617}
   m_Layer: 0
   m_Name: hero
   m_TagString: Player
@@ -809,6 +810,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &329428617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 329428609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e35305b3d3eecf49a16088efec97aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coin: {fileID: 8300000, guid: 4dd3df29390ddcc44b0a4fd2b411b11c, type: 3}
+  bomb: {fileID: 8300000, guid: 1025b9a617ae07448aa4a518a981509d, type: 3}
+  life: {fileID: 8300000, guid: ae29e7de5490ef941b70a9972756a2cd, type: 3}
 --- !u!1001 &333630600
 Prefab:
   m_ObjectHideFlags: 0
