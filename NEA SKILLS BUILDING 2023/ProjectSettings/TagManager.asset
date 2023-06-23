@@ -7,6 +7,8 @@ TagManager:
   - redGem
   - extraLife
   - vulnerable
+  - leftMarker
+  - rightMarker
   layers:
   - Default
   - TransparentFX
