@@ -8,11 +8,15 @@ public class HeroMovement : MonoBehaviour {
 	float speed;
 	public int lives;
 	public bool vulnerable;
+	public bool grounded;
+	public int jumps;
 	// Use this for initialization
 	void Start () {
 		lives = 3;
 		speed = 8.1f;
 		vulnerable = false;
+		grounded = false;
+		jumps = 1;
 		rb = GetComponent<Rigidbody2D> ();
 	}
 	
@@ -21,8 +25,27 @@ public class HeroMovement : MonoBehaviour {
 		if (Input.GetKey (KeyCode.RightArrow) || Input.GetKey (KeyCode.LeftArrow)) {
 			transform.Translate (Input.GetAxis ("Horizontal") * Time.deltaTime * speed, 0, 0);
 		}
+		grounded = CheckGround ();
+		if (grounded) {
+			jumps = 1;
+		}
 		if (Input.GetKeyDown (KeyCode.UpArrow)) {
-			rb.AddForce (Vector2.up * 300);
+			if (SceneManager.GetActiveScene ().name == "Level 3") {
+				if (grounded) {
+					jumps = 1;
+					rb.AddForce (Vector2.up * 400);
+				} else if (jumps > 0) {
+					rb.AddForce (Vector2.up * 500);
+					jumps = jumps - 1;
+				}
+			} else {
+				rb.AddForce (Vector2.up * 300);
+			}
+		}
+		if (Input.GetKey (KeyCode.DownArrow)) {
+			if (grounded == false) {
+				rb.AddForce (Vector2.down * 25);
+			}
 		}
 	}
 	void resetPosition(){
@@ -55,4 +78,13 @@ public class HeroMovement : MonoBehaviour {
 		vulnerable = false;
 		Debug.Log ("vulnerable = false!");
 	}
+
+	private bool CheckGround(){
+		RaycastHit2D hit;
+		LayerMask layerMask;
+		layerMask = LayerMask.GetMask ("ground");
+		hit = Physics2D.Raycast (transform.position, Vector2.down,1f,layerMask);
+		return (hit.collider != null && hit.collider.tag == "floor");
+	}
+
 }
