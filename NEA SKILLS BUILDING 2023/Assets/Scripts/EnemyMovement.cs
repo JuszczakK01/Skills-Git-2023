@@ -5,10 +5,12 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour {
 	public string direction;
 	public float movementSpeed;
+	GameObject Hero;
 	// Use this for initialization
 	void Start () {
 		direction = "right";
 		movementSpeed = 5f;
+		Hero = GameObject.FindGameObjectWithTag ("Player");
 	}
 	
 	// Update is called once per frame
@@ -29,5 +31,10 @@ public class EnemyMovement : MonoBehaviour {
 		else  if (other.gameObject.tag == "rightMarker") {
 			direction = "left";
 		}
+	}
+	private void OnCollisionEnter2D(Collision2D other) {
+
+		Debug.Log ("HIT!");
+		Hero.SendMessage("resetPosition");
 	}
 }

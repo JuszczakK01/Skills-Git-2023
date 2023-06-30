@@ -10,6 +10,8 @@ public class HeroMovement : MonoBehaviour {
 	public bool vulnerable;
 	public bool grounded;
 	public int jumps;
+	public float direction;
+	public int dash;
 	// Use this for initialization
 	void Start () {
 		lives = 3;
@@ -18,12 +20,15 @@ public class HeroMovement : MonoBehaviour {
 		grounded = false;
 		jumps = 1;
 		rb = GetComponent<Rigidbody2D> ();
+		direction = 0f;
+		dash = 1;
 	}
-	
+
 	// Update is called once per frame
 	void FixedUpdate () {
 		if (Input.GetKey (KeyCode.RightArrow) || Input.GetKey (KeyCode.LeftArrow)) {
 			transform.Translate (Input.GetAxis ("Horizontal") * Time.deltaTime * speed, 0, 0);
+			direction = Input.GetAxisRaw ("Horizontal");
 		}
 		grounded = CheckGround ();
 		if (grounded) {
@@ -47,9 +52,16 @@ public class HeroMovement : MonoBehaviour {
 				rb.AddForce (Vector2.down * 25);
 			}
 		}
+		if (Input.GetKeyDown (KeyCode.LeftShift)) {
+			if (dash > 0) {
+				dash = dash - 1;
+				rb.AddForce (Vector2.right * 600 * direction);
+				StartCoroutine (DashWait ());
+				StartCoroutine (DashCooldown ());
+			}
+		}
 	}
 	void resetPosition(){
-		Debug.Log ("SPIKED RECEIVED!");
 		transform.SetPositionAndRotation( new Vector3 (-5.62f, 0.78f, 0), Quaternion.identity);
 		setLives ();
 	}
@@ -74,7 +86,7 @@ public class HeroMovement : MonoBehaviour {
 	}
 	IEnumerator VulnerableDeBuff()
 	{
-		yield return new WaitForSeconds(5f);
+		yield return new WaitForSeconds(2f);
 		vulnerable = false;
 		Debug.Log ("vulnerable = false!");
 	}
@@ -86,5 +98,12 @@ public class HeroMovement : MonoBehaviour {
 		hit = Physics2D.Raycast (transform.position, Vector2.down,1f,layerMask);
 		return (hit.collider != null && hit.collider.tag == "floor");
 	}
-
+	IEnumerator DashWait(){
+		yield return new WaitForSecondsRealtime(0.5f);
+		rb.velocity = Vector2.zero;
+	}
+	IEnumerator DashCooldown(){
+		yield return new WaitForSecondsRealtime (3);
+		dash = 1;
+	}
 }
