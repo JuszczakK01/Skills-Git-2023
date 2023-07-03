@@ -12,6 +12,9 @@ public class HeroMovement : MonoBehaviour {
 	public int jumps;
 	public float direction;
 	public int dash;
+	public GameObject particleSystem;
+	public bool invincible;
+	public GameObject enemy;
 	// Use this for initialization
 	void Start () {
 		lives = 3;
@@ -22,39 +25,49 @@ public class HeroMovement : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D> ();
 		direction = 0f;
 		dash = 1;
+		invincible = false;
+		enemy = GameObject.FindGameObjectWithTag ("enemy");
 	}
 
 	// Update is called once per frame
 	void FixedUpdate () {
 		if (Input.GetKey (KeyCode.RightArrow) || Input.GetKey (KeyCode.LeftArrow)) {
-			transform.Translate (Input.GetAxis ("Horizontal") * Time.deltaTime * speed, 0, 0);
-			direction = Input.GetAxisRaw ("Horizontal");
+			if (invincible == false) {
+				transform.Translate (Input.GetAxis ("Horizontal") * Time.deltaTime * speed, 0, 0);
+				direction = Input.GetAxisRaw ("Horizontal");
+			}
 		}
 		grounded = CheckGround ();
 		if (grounded) {
 			jumps = 1;
 		}
 		if (Input.GetKeyDown (KeyCode.UpArrow)) {
-			if (SceneManager.GetActiveScene ().name == "Level 3") {
-				if (grounded) {
-					jumps = 1;
-					rb.AddForce (Vector2.up * 400);
-				} else if (jumps > 0) {
-					rb.AddForce (Vector2.up * 500);
-					jumps = jumps - 1;
+			if (invincible == false) {
+				if (SceneManager.GetActiveScene ().name == "Level 3") {
+					if (grounded) {
+						jumps = 1;
+						rb.AddForce (Vector2.up * 400);
+					} else if (jumps > 0) {
+						rb.AddForce (Vector2.up * 500);
+						jumps = jumps - 1;
+					}
+				} else {
+					rb.AddForce (Vector2.up * 300);
 				}
-			} else {
-				rb.AddForce (Vector2.up * 300);
 			}
 		}
 		if (Input.GetKey (KeyCode.DownArrow)) {
-			if (grounded == false) {
-				rb.AddForce (Vector2.down * 25);
+			if(invincible == false){
+				if (grounded == false) {
+					rb.AddForce (Vector2.down * 25);
+				}
 			}
 		}
 		if (Input.GetKeyDown (KeyCode.LeftShift)) {
 			if (dash > 0) {
 				dash = dash - 1;
+				invincible = true;
+				rb.velocity = Vector2.zero;
 				rb.AddForce (Vector2.right * 600 * direction);
 				StartCoroutine (DashWait ());
 				StartCoroutine (DashCooldown ());
@@ -103,7 +116,14 @@ public class HeroMovement : MonoBehaviour {
 		rb.velocity = Vector2.zero;
 	}
 	IEnumerator DashCooldown(){
-		yield return new WaitForSecondsRealtime (3);
+		var part = GetComponent<ParticleSystem> ();
+		part.Play ();
+		yield return new WaitForSecondsRealtime (0.5f);
+		invincible = false;
+		rb.gravityScale = 1;
+		yield return new WaitForSecondsRealtime (0.5f);
+		part.Stop ();
+		yield return new WaitForSecondsRealtime (2);
 		dash = 1;
 	}
 }
