@@ -15,6 +15,7 @@ public class HeroMovement : MonoBehaviour {
 	public GameObject particleSystem;
 	public bool invincible;
 	public GameObject enemy;
+	public bool temporaryinv;
 	// Use this for initialization
 	void Start () {
 		lives = 3;
@@ -26,6 +27,7 @@ public class HeroMovement : MonoBehaviour {
 		direction = 0f;
 		dash = 1;
 		invincible = false;
+		temporaryinv = false;
 		enemy = GameObject.FindGameObjectWithTag ("enemy");
 	}
 
@@ -67,8 +69,11 @@ public class HeroMovement : MonoBehaviour {
 			if (dash > 0) {
 				dash = dash - 1;
 				invincible = true;
+				temporaryinv = true;
+				rb.gravityScale = 0;
 				rb.velocity = Vector2.zero;
 				rb.AddForce (Vector2.right * 600 * direction);
+				Physics2D.IgnoreLayerCollision (10, 9, true);
 				StartCoroutine (DashWait ());
 				StartCoroutine (DashCooldown ());
 			}
@@ -118,11 +123,13 @@ public class HeroMovement : MonoBehaviour {
 	IEnumerator DashCooldown(){
 		var part = GetComponent<ParticleSystem> ();
 		part.Play ();
-		yield return new WaitForSecondsRealtime (0.5f);
+		yield return new WaitForSecondsRealtime (0.7f);
 		invincible = false;
 		rb.gravityScale = 1;
-		yield return new WaitForSecondsRealtime (0.5f);
+		Physics2D.IgnoreLayerCollision (10, 9, false);
+		yield return new WaitForSecondsRealtime (0.3f);
 		part.Stop ();
+		temporaryinv = false;
 		yield return new WaitForSecondsRealtime (2);
 		dash = 1;
 	}

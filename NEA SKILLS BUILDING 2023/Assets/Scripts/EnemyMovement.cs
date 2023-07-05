@@ -7,6 +7,7 @@ public class EnemyMovement : MonoBehaviour {
 	public float movementSpeed;
 	GameObject Hero;
 	bool invincible;
+	bool tempinv;
 	// Use this for initialization
 	void Start () {
 		direction = "right";
@@ -25,6 +26,7 @@ public class EnemyMovement : MonoBehaviour {
 			transform.Translate(Vector3.left * Time.deltaTime * movementSpeed);
 		}
 		invincible = Hero.GetComponent<HeroMovement>().invincible;
+		tempinv = Hero.GetComponent<HeroMovement>().temporaryinv;
 	}
 	private void OnTriggerEnter2D(Collider2D other) {
 		if (other.gameObject.tag == "leftMarker") {
@@ -35,9 +37,15 @@ public class EnemyMovement : MonoBehaviour {
 		}
 	}
 	private void OnCollisionEnter2D(Collision2D other) {
-		if (invincible == false) {
+		if ((invincible == false || tempinv == false) && other.gameObject.tag == "Player") {
 			Debug.Log ("HIT!");
 			Hero.SendMessage("resetPosition");
+		}
+	}
+	private void OnCollisionStay2D(Collision2D other){
+		if (invincible == false && other.gameObject.tag == "Player") {
+			Debug.Log ("HIT!");
+			Hero.SendMessage ("resetPosition");
 		}
 	}
 
