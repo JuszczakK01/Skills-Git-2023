@@ -37,13 +37,13 @@ public class EnemyMovement : MonoBehaviour {
 		}
 	}
 	private void OnCollisionEnter2D(Collision2D other) {
-		if ((invincible == false || tempinv == false) && other.gameObject.tag == "Player") {
+		if ((invincible == false && tempinv == false) && other.gameObject.tag == "Player") {
 			Debug.Log ("HIT!");
 			Hero.SendMessage("resetPosition");
 		}
 	}
 	private void OnCollisionStay2D(Collision2D other){
-		if (invincible == false && other.gameObject.tag == "Player") {
+		if ((invincible == false && tempinv == false) && other.gameObject.tag == "Player") {
 			Debug.Log ("HIT!");
 			Hero.SendMessage ("resetPosition");
 		}

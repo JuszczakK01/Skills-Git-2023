@@ -11,7 +11,7 @@ public class Spawner : MonoBehaviour {
 	void Start () {
 		Spawned = false;
 		if (SceneManager.GetActiveScene ().name == "Level 3") {
-			SpawnedPosition = new Vector3 (20.40648f, -1.175821f, 0);
+			SpawnedPosition = new Vector3 (-5.62f, 0.78f, 0);
 		} else {
 			SpawnedPosition = new Vector3 (20.40648f, -1.175821f, 0);
 		}

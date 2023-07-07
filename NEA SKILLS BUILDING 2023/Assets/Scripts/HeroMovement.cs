@@ -48,9 +48,9 @@ public class HeroMovement : MonoBehaviour {
 				if (SceneManager.GetActiveScene ().name == "Level 3") {
 					if (grounded) {
 						jumps = 1;
-						rb.AddForce (Vector2.up * 400);
+						rb.velocity = new Vector2 (rb.velocity.x, 7.5f);
 					} else if (jumps > 0) {
-						rb.AddForce (Vector2.up * 500);
+						rb.velocity = new Vector2 (rb.velocity.x, 7.5f);
 						jumps = jumps - 1;
 					}
 				} else {
@@ -82,6 +82,9 @@ public class HeroMovement : MonoBehaviour {
 	void resetPosition(){
 		transform.SetPositionAndRotation( new Vector3 (-5.62f, 0.78f, 0), Quaternion.identity);
 		setLives ();
+	}
+	void teleport(){
+		transform.SetPositionAndRotation( new Vector3 (-5.62f, 0.78f, 0), Quaternion.identity);
 	}
 	public void setLives(){
 		lives -= 1;
@@ -129,8 +132,8 @@ public class HeroMovement : MonoBehaviour {
 		Physics2D.IgnoreLayerCollision (10, 9, false);
 		yield return new WaitForSecondsRealtime (0.3f);
 		part.Stop ();
-		temporaryinv = false;
 		yield return new WaitForSecondsRealtime (2);
+		temporaryinv = false;
 		dash = 1;
 	}
 }

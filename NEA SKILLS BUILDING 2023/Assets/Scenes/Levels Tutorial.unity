@@ -389,6 +389,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lives: 0
   vulnerable: 0
+  grounded: 0
+  jumps: 0
+  direction: 0
+  dash: 0
+  particleSystem: {fileID: 0}
+  invincible: 0
+  enemy: {fileID: 0}
+  temporaryinv: 0
 --- !u!114 &329428615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2274,7 +2282,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -0.08911896, w: 0.09624338}
+  m_margin: {x: 0, y: 0, z: -7.809439, w: 0.09624338}
   m_textInfo:
     textComponent: {fileID: 0}
     characterCount: 11
